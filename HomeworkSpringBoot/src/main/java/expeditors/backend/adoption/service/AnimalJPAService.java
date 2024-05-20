@@ -3,10 +3,12 @@ package expeditors.backend.adoption.service;
 import expeditors.backend.adoption.classes.Animal;
 import expeditors.backend.adoption.dao.repository.AnimalRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class AnimalJPAService {
     private final AnimalRepository animalRepository;
 
@@ -19,12 +21,17 @@ public class AnimalJPAService {
     }
 
     public boolean deleteAnimal(int id) {
-        Animal animal = animalRepository.findById(id).orElse(null);
-        if (animal != null) {
-            animalRepository.delete(animal);
+        if (animalRepository.existsById(id)) {
+            animalRepository.deleteById(id);
             return true;
         }
         return false;
+//        Animal animal = animalRepository.findById(id).orElse(null);
+//        if (animal != null) {
+//            animalRepository.delete(animal);
+//            return true;
+//        }
+//        return false;
     }
 
     public boolean updateAnimal(Animal animal) {

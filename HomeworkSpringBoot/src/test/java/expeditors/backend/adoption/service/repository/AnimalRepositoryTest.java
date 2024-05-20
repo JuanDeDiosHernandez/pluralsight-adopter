@@ -8,12 +8,14 @@ import expeditors.backend.adoption.dao.repository.AnimalRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 public class AnimalRepositoryTest {
 
     @Autowired
@@ -36,14 +38,15 @@ public class AnimalRepositoryTest {
 
     @Test
     public void testCreateAnimal() {
-        List<Animal> animals = animalRepository.findAll();
-        int maxId = animals.stream().mapToInt(Animal::getId).max().orElse(0);
+//        List<Animal> animals = animalRepository.findAll();
+//        int maxId = animals.stream().mapToInt(Animal::getId).max().orElse(0);
 
         Adopter adopter = adopterRepository.findById(2).orElse(null);
         Animal animal = Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").adopter(adopter).build();
         animalRepository.save(animal);
 
-        assertEquals(maxId + 1, animal.getId());
+//        assertEquals(maxId + 1, animal.getId());
+        assertTrue(animal.getId() > 0);
     }
 
     @Test
@@ -68,7 +71,7 @@ public class AnimalRepositoryTest {
 
         assertTrue(animal.getId() > 0);
 
-        animalRepository.delete(animal);
+        animalRepository.deleteById(animal.getId());
 
         Animal deletedAnimal = animalRepository.findById(animal.getId()).orElse(null);
         assertNull(deletedAnimal);

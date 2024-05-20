@@ -26,13 +26,17 @@ public class AnimalControllerClientTest {
     private RestClient restClient;
     private String baseUrl;
     private String rootUrl;
+    private String rootUrlAdopter;
     private String uriIdAnimal;
+    private String uriIdAdopter;
 
     @PostConstruct
     public void init() {
         baseUrl = "http://localhost:" + port;
         rootUrl = "/animalJPA";
+        rootUrlAdopter = "/adopterJPA";
         uriIdAnimal = rootUrl + "/{id}";
+        uriIdAdopter = rootUrlAdopter + "/{id}";
 
         this.restClient = RestClient.builder()
                 .baseUrl(baseUrl)
@@ -79,7 +83,13 @@ public class AnimalControllerClientTest {
 
     @Test
     public void testCreateAnimal() {
-        Animal animal = Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").build();
+        ResponseEntity<Adopter> response = restClient.get()
+                .uri(uriIdAdopter, 1)
+                .retrieve()
+                .toEntity(Adopter.class);
+        Adopter adopter = response.getBody();
+        adopter.setAnimal(null);
+        Animal animal = Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").adopter(adopter).build();
         ResponseEntity<Void> result = restClient.post()
                 .uri(rootUrl)
                 .body(animal)

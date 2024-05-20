@@ -2,6 +2,7 @@ package expeditors.backend.adoption.service.controller.integration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import expeditors.backend.adoption.classes.Adopter;
 import expeditors.backend.adoption.classes.Animal;
 import expeditors.backend.adoption.classes.TypePet;
 import org.junit.jupiter.api.Test;
@@ -61,25 +62,7 @@ public class AnimalControllerMVCTest {
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void testCreateAnimal() throws Exception {
-        Animal animal = Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").build();
-        String jsonString = mapper.writeValueAsString(animal);
-
-        ResultActions actions = mockMvc.perform(post("/animalJPA")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonString));
-
-        actions = actions.andExpect(status().isCreated());
-
-        MvcResult result = actions.andReturn();
-        String locHeader = result.getResponse().getHeader("Location");
-        assertNotNull(locHeader);
-    }
-
-    @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    public void testUpdateAnimal() throws Exception {
-        MockHttpServletRequestBuilder builder = get("/animalJPA/{id}", 1)
+        MockHttpServletRequestBuilder builder = get("/adopterJPA/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -88,10 +71,51 @@ public class AnimalControllerMVCTest {
 
         String jsonResult = result.getResponse().getContentAsString();
         JsonNode node = mapper.readTree(jsonResult);
-        Animal adopter = mapper.treeToValue(node, Animal.class);
-        adopter.setPetName("Leo");
+        Adopter adopter = mapper.treeToValue(node, Adopter.class);
+        adopter.setAnimal(null);
+        String jsonStringAdopter = mapper.writeValueAsString(adopter);
 
-        String updatedJson = mapper.writeValueAsString(adopter);
+        Animal animal = Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").adopter(adopter).build();
+        String jsonString = mapper.writeValueAsString(animal);
+        jsonString = jsonString.replace("}", STR.",\"adopter\":\{jsonStringAdopter}}");
+
+
+        actions = mockMvc.perform(post("/animalJPA")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString));
+
+        actions = actions.andExpect(status().isCreated());
+
+        result = actions.andReturn();
+        String locHeader = result.getResponse().getHeader("Location");
+        assertNotNull(locHeader);
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    public void testUpdateAnimal() throws Exception {
+        MockHttpServletRequestBuilder builder = get("/adopterJPA/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+        ResultActions actions = mockMvc.perform(builder).andExpect(status().isOk());
+        MvcResult result = actions.andReturn();
+        String jsonResultAdopter = result.getResponse().getContentAsString();
+
+        builder = get("/animalJPA/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        actions = mockMvc.perform(builder).andExpect(status().isOk());
+        result = actions.andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+        JsonNode node = mapper.readTree(jsonResult);
+        Animal animal = mapper.treeToValue(node, Animal.class);
+        animal.setPetName("Leo");
+
+        String updatedJson = mapper.writeValueAsString(animal);
+        updatedJson = updatedJson.replace("}", STR.",\"adopter\":\{jsonResultAdopter}}");
 
         actions = mockMvc.perform(put("/animalJPA")
                 .accept(MediaType.APPLICATION_JSON)
@@ -108,9 +132,9 @@ public class AnimalControllerMVCTest {
 
         jsonResult = result.getResponse().getContentAsString();
         node = mapper.readTree(jsonResult);
-        adopter = mapper.treeToValue(node, Animal.class);
+        animal = mapper.treeToValue(node, Animal.class);
 
-        assertEquals("Leo", adopter.getPetName());
+        assertEquals("Leo", animal.getPetName());
     }
 
     @Test
@@ -139,17 +163,30 @@ public class AnimalControllerMVCTest {
 
     @Test
     public void testDeleteAnimal() throws Exception {
-        Animal animal = Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").build();
-        String jsonString = mapper.writeValueAsString(animal);
+        MockHttpServletRequestBuilder builder = get("/adopterJPA/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
 
-        ResultActions actions = mockMvc.perform(post("/animalJPA")
+        ResultActions actions = mockMvc.perform(builder).andExpect(status().isOk());
+        MvcResult result = actions.andReturn();
+
+        String jsonResult = result.getResponse().getContentAsString();
+        JsonNode node = mapper.readTree(jsonResult);
+        Adopter adopter = mapper.treeToValue(node, Adopter.class);
+        String jsonStringAdopter = mapper.writeValueAsString(adopter);
+
+        Animal animal = Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").adopter(adopter).build();
+        String jsonString = mapper.writeValueAsString(animal);
+        jsonString = jsonString.replace("}", STR.",\"adopter\":\{jsonStringAdopter}}");
+
+        actions = mockMvc.perform(post("/animalJPA")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonString));
 
         actions = actions.andExpect(status().isCreated());
 
-        MvcResult result = actions.andReturn();
+        result = actions.andReturn();
         String locHeader = result.getResponse().getHeader("Location");
         assertNotNull(locHeader);
 

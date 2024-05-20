@@ -1,9 +1,8 @@
 package expeditors.backend.adoption.controller;
 
-import expeditors.backend.adoption.AdopterService;
+import expeditors.backend.adoption.service.AdopterService;
 import expeditors.backend.adoption.classes.Adopter;
 import expeditors.backend.adoption.classes.AdopterPets;
-import expeditors.backend.adoption.service.AdopterJPAService;
 import expeditors.backend.adoption.utils.UriCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,14 +1,12 @@
 package expeditors.backend.adoption.controller;
 
-import expeditors.backend.adoption.AnimalService;
-import expeditors.backend.adoption.classes.Adopter;
+import expeditors.backend.adoption.service.AnimalService;
 import expeditors.backend.adoption.classes.Animal;
 import expeditors.backend.adoption.utils.UriCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;

@@ -1,6 +1,6 @@
 package expeditors.backend.adoption.dao;
 
-import expeditors.backend.adoption.AdopterService;
+import expeditors.backend.adoption.service.AdopterService;
 import expeditors.backend.adoption.dao.inmemory.InMemoryAdopterDAO;
 import expeditors.backend.adoption.dao.jpa.JPAAdopterDAO;
 

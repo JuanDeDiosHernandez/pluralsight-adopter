@@ -1,6 +1,8 @@
 package expeditors.backend.adoption.classes;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,8 +27,10 @@ public class Animal {
     private String petName;
     @Column(name = "pet_breed")
     private String petBreed;
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @JsonBackReference
+//    @JsonView(Views.Adopter.class)
     @JoinColumn(name = "adopter_id")
     private Adopter adopter;
 

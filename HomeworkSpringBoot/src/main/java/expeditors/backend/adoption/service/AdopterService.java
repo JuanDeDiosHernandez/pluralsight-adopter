@@ -1,4 +1,4 @@
-package expeditors.backend.adoption;
+package expeditors.backend.adoption.service;
 
 import expeditors.backend.adoption.classes.Adopter;
 import expeditors.backend.adoption.classes.AdopterPets;

@@ -1,6 +1,8 @@
 package expeditors.backend.adoption.classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +33,8 @@ public class Adopter {
 //    private int animal_id;
     @OneToMany(mappedBy = "adopter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JsonIgnore
+//    @JsonView(Views.Adopter.class)
+    @JsonManagedReference
     private List<Animal> animal = new ArrayList<>();
 
     public Adopter(){

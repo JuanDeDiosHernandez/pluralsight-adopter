@@ -1,4 +1,4 @@
-package expeditors.backend.adoption;
+package expeditors.backend.adoption.service;
 
 import expeditors.backend.adoption.classes.Animal;
 import expeditors.backend.adoption.dao.AnimalDAO;
