@@ -86,15 +86,15 @@ public class SpringConfig extends AbstractDAO {
         return dao;
     }
 
-    @Bean
-    public DataSource dataSource() {
-//        String url = "jdbc:postgresql://localhost:5433/larku";
-//        String user = "larku";
-//        String pw = System.getenv("DB_PASSWORD");
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource(url, user, pw);
-//        return dataSource;
-        return getDataSource();
-    }
+//    @Bean
+//    public DataSource dataSource() {
+////        String url = "jdbc:postgresql://localhost:5433/larku";
+////        String user = "larku";
+////        String pw = System.getenv("DB_PASSWORD");
+////        DriverManagerDataSource dataSource = new DriverManagerDataSource(url, user, pw);
+////        return dataSource;
+//        return getDataSource();
+//    }
 
 //    @Bean
 //    public AdopterDAO adopterDAO() {

@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,7 +26,7 @@ public class JPATest {
 
     @BeforeEach
     public void beforeEach() {
-        String pw = "larku";// System.getenv("DB_PASSWORD");
+        String pw = System.getenv("DB_PASSWORD");
 
         var props = Map.of(
                 "jakarta.persistence.jdbc.url", "jdbc:postgresql://localhost:5434/adopterdb",

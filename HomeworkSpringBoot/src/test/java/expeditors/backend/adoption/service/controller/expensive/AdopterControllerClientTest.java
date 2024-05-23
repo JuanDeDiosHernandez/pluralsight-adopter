@@ -4,6 +4,7 @@ import expeditors.backend.adoption.classes.Adopter;
 import expeditors.backend.adoption.classes.Animal;
 import expeditors.backend.adoption.classes.TypePet;
 import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;

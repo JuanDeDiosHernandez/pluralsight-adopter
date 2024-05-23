@@ -4,6 +4,7 @@ import expeditors.backend.adoption.classes.Adopter;
 import expeditors.backend.adoption.classes.Animal;
 import expeditors.backend.adoption.classes.TypePet;
 import expeditors.backend.adoption.service.AdopterJPAService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class AbstractDAO {
     String url = "jdbc:postgresql://localhost:5434/adopterdb";
     String username = "larku";
-    String password = "larku";
+    String password = System.getenv("DB_PASSWORD");
 
     protected Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, username, password);

@@ -6,6 +6,7 @@ import expeditors.backend.adoption.classes.TypePet;
 import expeditors.backend.adoption.service.AdopterJPAService;
 import expeditors.backend.adoption.service.AnimalJPAService;
 import jakarta.persistence.TypedQuery;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
