@@ -1,6 +1,7 @@
 package expeditors.backend.adoption.service;
 
 import expeditors.backend.adoption.classes.Adopter;
+import expeditors.backend.adoption.classes.AdopterSmallDTO;
 import expeditors.backend.adoption.classes.Animal;
 import expeditors.backend.adoption.dao.repository.AdopterRepository;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,11 @@ public class AdopterJPAService {
 
     public Adopter getAdopter(int id) {
         return adopterRepository.findById(id).orElse(null);
+    }
+
+
+    public AdopterSmallDTO getAdopterSmallDTO(int id) {
+        return adopterRepository.findSmallDTOById(id);
     }
 
     public List<Adopter> getAdopters() {

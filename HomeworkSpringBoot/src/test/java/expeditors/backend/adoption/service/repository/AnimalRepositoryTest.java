@@ -39,14 +39,11 @@ public class AnimalRepositoryTest {
 
     @Test
     public void testCreateAnimal() {
-//        List<Animal> animals = animalRepository.findAll();
-//        int maxId = animals.stream().mapToInt(Animal::getId).max().orElse(0);
-
         Adopter adopter = adopterRepository.findById(2).orElse(null);
         Animal animal = Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").adopter(adopter).build();
+
         animalRepository.save(animal);
 
-//        assertEquals(maxId + 1, animal.getId());
         assertTrue(animal.getId() > 0);
     }
 

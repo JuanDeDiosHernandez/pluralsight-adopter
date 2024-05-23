@@ -17,17 +17,17 @@ public class AdopterSpringBootApp {
     }
 }
 
-@Component
-class DBInitializer implements CommandLineRunner
-{
-    @Autowired
-    private InitDB initDB;
-
-    @Override
-    public void run(String... args) throws Exception {
-        initDB.doIt();
-    }
-}
+//@Component
+//class DBInitializer implements CommandLineRunner
+//{
+//    @Autowired
+//    private InitDB initDB;
+//
+//    @Override
+//    public void run(String... args) throws Exception {
+//        initDB.doIt();
+//    }
+//}
 
 //@Component
 //class MyRunner implements CommandLineRunner

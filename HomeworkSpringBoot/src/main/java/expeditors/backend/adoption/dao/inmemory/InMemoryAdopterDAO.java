@@ -14,17 +14,11 @@ public class InMemoryAdopterDAO implements AdopterDAO {
 
     private Map<Integer, Adopter> adopters = new HashMap<>();
     private int nextId = 1;
-//    private int nextAnimalId = 1;
 
     @Override
     public Adopter insert(Adopter adopter) {
         int id = nextId++;
         adopter.setId(id);
-//        if (adopter.getAnimal() != null) {
-//            int idAnimal = nextAnimalId++;
-//            adopter.getAnimal().setId(idAnimal);
-//        }
-////        adopter.setPetName(STR."InMem \{adopter.getPetName()}");
         adopters.put(adopter.getId(), adopter);
         return adopter;
     }

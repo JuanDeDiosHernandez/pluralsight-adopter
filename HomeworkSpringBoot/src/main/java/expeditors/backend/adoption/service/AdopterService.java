@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service//("adoptionService")
+@Service
 public class AdopterService {
 
     @Autowired
     private AdopterDAO adopterDAO;
-//    private AdopterDAO adopterDAO = new JPAAdopterDAO();
 
     public Adopter createAdopter(Adopter adopter) {
         return adopterDAO.insert(adopter);
@@ -37,14 +36,6 @@ public class AdopterService {
     }
 
     public List<Adopter> getAdopters() { return adopterDAO.findAll(); }
-
-    public AdopterDAO getAdopterDAO() {
-        return adopterDAO;
-    }
-
-    public void setAdopterDAO(AdopterDAO adopterDAO) {
-        this.adopterDAO = adopterDAO;
-    }
 
     public Adopter getAdopterByName(String name) {
         return adopterDAO.findByName(name);

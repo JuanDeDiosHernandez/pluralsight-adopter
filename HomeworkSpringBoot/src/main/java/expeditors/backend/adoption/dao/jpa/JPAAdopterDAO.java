@@ -21,18 +21,6 @@ import java.util.*;
 @Profile("prod")
 public class JPAAdopterDAO extends AbstractDAO implements AdopterDAO {
 
-//    private Map<Integer, Adopter> adopters = new HashMap<>();
-//    private int nextId = 1;
-
-//    @Override
-//    public Adopter insert(Adopter adopter) {
-//        int id = nextId++;
-//        adopter.setId(id);
-////        adopter.setPetName(STR."JPA: \{adopter.getPetName()}");
-//        adopters.put(adopter.getId(), adopter);
-//        return adopter;
-//    }
-
     private ResultSetExtractor<Adopter> getExtractor() {
         return (rs) -> {
             Adopter adopter = null;
@@ -78,11 +66,6 @@ public class JPAAdopterDAO extends AbstractDAO implements AdopterDAO {
         return adopter;
     }
 
-//    @Override
-//    public boolean update(Adopter adopter) {
-//        return adopters.replace(adopter.getId(), student) != null;
-//    }
-
     @Override
     public boolean update(Adopter adopter) {
         String sql = "UPDATE adopters SET name = ?, phone = ?, date_adoption = ?, animal_id = ? WHERE adopter_id = ?";
@@ -95,44 +78,12 @@ public class JPAAdopterDAO extends AbstractDAO implements AdopterDAO {
                 adopter.getId()) == 1;
     }
 
-//    @Override
-//    public boolean delete(int id) {
-//        return adopters.remove(id) != null;
-//    }
-
     @Override
     public boolean delete(int id) {
         String sql = "DELETE FROM adopters WHERE adopter_id = ?";
 
         return getJdbcTemplate().update(sql, id) == 1;
     }
-
-//    @Override
-//    public Adopter findById(int id) {
-//        return adopters.get(id);
-//    }
-
-//    @Override
-//    public Adopter findById(int id) {
-//        Optional<Adopter> adopter;
-//        JdbcQueryTemplate<Adopter> template = new JdbcQueryTemplate<>() {
-//            @Override
-//            public Optional<Adopter> mapItem(ResultSet resultSet) throws SQLException {
-//                Optional<Adopter> adopter = Optional.of(Adopter.builder()
-//                        .id(resultSet.getInt("adopter_id"))
-//                        .name(resultSet.getString("name"))
-//                        .phone(resultSet.getString("phone"))
-//                        .dateAdoption(resultSet.getDate("date_adoption").toLocalDate())
-//                        .animal_id(resultSet.getInt("animal_id"))
-//                        .build());
-//                return adopter;
-//            }
-//        };
-//
-//        adopter = template.queryGetById("SELECT * FROM adopters WHERE adopter_id = ?", id);
-//
-//        return adopter.orElse(null);
-//    }
 
     @Override
     public Adopter findById(int id) {
@@ -141,47 +92,12 @@ public class JPAAdopterDAO extends AbstractDAO implements AdopterDAO {
         return getJdbcTemplate().query(sql, getExtractor(), id);
     }
 
-//    @Override
-//    public List<Adopter> findAll() {
-//        return new ArrayList<>(adopters.values());
-//    }
-
-//    @Override
-//    public List<Adopter> findAll() {
-//        List<Adopter> adopters = Collections.emptyList();
-//        JdbcQueryTemplate<Adopter> template = new JdbcQueryTemplate<>() {
-//            @Override
-//            public Optional<Adopter> mapItem(ResultSet resultSet) throws SQLException {
-//                Optional<Adopter> adopter = Optional.of(Adopter.builder()
-//                        .id(resultSet.getInt("adopter_id"))
-//                        .name(resultSet.getString("name"))
-//                        .phone(resultSet.getString("phone"))
-//                        .dateAdoption(resultSet.getDate("date_adoption").toLocalDate())
-//                        .animal_id(resultSet.getInt("animal_id"))
-//                        .build());
-//                return adopter;
-//            }
-//        };
-//
-//        adopters = template.queryGetList("SELECT * FROM adopters");
-//
-//        return adopters;
-//    }
-
     @Override
     public List<Adopter> findAll() {
         String sql = "SELECT * FROM adopters";
 
         return getJdbcTemplate().query(sql, getMapper());
     }
-
-//    @Override
-//    public Adopter findByName(String name) {
-//        return adopters.entrySet().stream()
-//                .filter(adopterFilter -> Objects.equals(adopterFilter.getValue().getName(), name))
-//                .findFirst()
-//                .map(Map.Entry::getValue).orElse(null);
-//    }
 
     @Override
     public Adopter findByName(String name) {
@@ -190,13 +106,6 @@ public class JPAAdopterDAO extends AbstractDAO implements AdopterDAO {
 
         return getJdbcTemplate().query(sql, getExtractor(), name);
     }
-
-//    @Override
-//    public List<Adopter> findAllSortedByName() {
-//        var adopters = findAll();
-//        adopters.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
-//        return adopters;
-//    }
 
     @Override
     public List<Adopter> findAllSortedByName() {

@@ -27,20 +27,10 @@ public class SpringConfig extends AbstractDAO {
             Adopter.builder().name("Juan")
                     .phone("111-1111")
                     .dateAdoption(LocalDate.now())
-//                    .animal_id(1)
-//                    .animal(Animal.builder()
-//                            .typePet(TypePet.TURTLE)
-//                            .petName("Donatello")
-//                            .petBreed("Red Eared")
-//                            .build())
                     .build(),
             Adopter.builder().name("Erick")
                     .phone("222-2222")
                     .dateAdoption(LocalDate.now())
-//                    .animal_id(2)
-//                    .animal(Animal.builder()
-//                            .typePet(TypePet.DOG)
-//                            .build())
                     .build()
     );
     List<Animal> animals = List.of(
@@ -94,43 +84,5 @@ public class SpringConfig extends AbstractDAO {
 ////        DriverManagerDataSource dataSource = new DriverManagerDataSource(url, user, pw);
 ////        return dataSource;
 //        return getDataSource();
-//    }
-
-//    @Bean
-//    public AdopterDAO adopterDAO() {
-//        var dao = new InMemoryAdopterDAO();
-//        return dao;
-//    }
-//
-//    @Bean
-//    public AdoptionService adoptionService() {
-//        AdoptionService newService = new AdoptionService();
-//        AdopterDAO dao = adopterDAO();
-//        newService.setAdopterDAO(dao);
-//        return newService;
-//    }
-
-//    @Bean
-//    @Profile("dev")
-//    public AdopterDAO adopterDAO() {
-//        AdopterDAO dao = new InMemoryAdopterDAO();
-//        return dao;
-//    }
-//
-//    @Bean(name = "adopterDAO")
-//    @Profile("prod")
-//    public AdopterDAO jpaAdopterDAO() {
-//        AdopterDAO dao = new JPAAdopterDAO();
-//        return dao;
-//    }
-//
-//    @Bean
-//    public AdoptionService adoptionService() {
-//        AdoptionService service = new AdoptionService();
-//
-//        AdopterDAO dao = adopterDAO();
-//        service.setAdopterDAO(dao);
-//
-//        return service;
 //    }
 }

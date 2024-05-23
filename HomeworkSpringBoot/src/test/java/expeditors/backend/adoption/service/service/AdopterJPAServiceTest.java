@@ -1,6 +1,7 @@
 package expeditors.backend.adoption.service.service;
 
 import expeditors.backend.adoption.classes.Adopter;
+import expeditors.backend.adoption.classes.AdopterSmallDTO;
 import expeditors.backend.adoption.classes.Animal;
 import expeditors.backend.adoption.classes.TypePet;
 import expeditors.backend.adoption.service.AdopterJPAService;
@@ -41,7 +42,7 @@ public class AdopterJPAServiceTest {
         int maxId = adopters.stream().mapToInt(Adopter::getId).max().orElse(0);
 
         Adopter adopter = new Adopter("Juan", "111-1111", LocalDate.now(),
-                new ArrayList<Animal>(List.of(Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").build())));
+                new ArrayList<>(List.of(Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").build())));
         adopterJPAService.createAdopter(adopter);
 
         assertEquals(maxId + 1, adopter.getId());
@@ -49,8 +50,13 @@ public class AdopterJPAServiceTest {
 
     @Test
     public void testUpdateAdopter() {
-        Adopter adopter = adopterJPAService.getAdopter(1);
-        assertNotNull(adopter);
+        AdopterSmallDTO adopterSmallDTO = adopterJPAService.getAdopterSmallDTO(1);
+        assertNotNull(adopterSmallDTO);
+        Adopter adopter = Adopter.builder().id(adopterSmallDTO.id())
+                .name(adopterSmallDTO.name())
+                .phone(adopterSmallDTO.phone())
+                .dateAdoption(adopterSmallDTO.dateAdoption())
+                .build();
         String newPhone = "211-1111";
         adopter.setPhone(newPhone);
 
@@ -63,7 +69,7 @@ public class AdopterJPAServiceTest {
     @Test
     public void testDeleteAdopter() {
         Adopter adopter = new Adopter("Juan", "111-1111", LocalDate.now(),
-                new ArrayList<Animal>(List.of(Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").build())));
+                new ArrayList<>(List.of(Animal.builder().typePet(TypePet.TURTLE).petName("Donatello").petBreed("Red Eared").build())));
         adopterJPAService.createAdopter(adopter);
 
         assertTrue(adopter.getId() > 0);

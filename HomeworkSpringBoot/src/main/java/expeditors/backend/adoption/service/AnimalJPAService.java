@@ -26,12 +26,6 @@ public class AnimalJPAService {
             return true;
         }
         return false;
-//        Animal animal = animalRepository.findById(id).orElse(null);
-//        if (animal != null) {
-//            animalRepository.delete(animal);
-//            return true;
-//        }
-//        return false;
     }
 
     public boolean updateAnimal(Animal animal) {
